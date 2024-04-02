@@ -26,16 +26,16 @@ struct ChatView: View {
                 TextField("Enter a message", text: $messageText){
                     
                 }
-                    .background(.gray.opacity(0.1))
                     .padding()
+                    .background(.gray.opacity(0.1))
                     .cornerRadius(12)
                 Button {
                     sendMessage()
                 } label: {
                     Text("Send")
                         .foregroundColor(.white)
-                        .background(.black)
                         .padding()
+                        .background(.black)
                         .cornerRadius(12)
                 }
 
