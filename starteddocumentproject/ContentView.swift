@@ -11,7 +11,14 @@ struct ContentView: View {
     @Binding var document: starteddocumentprojectDocument
 
     var body: some View {
-        TextEditor(text: $document.text)
+        NavigationView {
+            VStack {
+                NavigationLink(destination: ChatView()) {
+                    Text("Go to Second View")
+                }
+            }
+            .navigationTitle("First View")
+        }
     }
 }
 
