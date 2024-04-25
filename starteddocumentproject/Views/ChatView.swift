@@ -9,18 +9,10 @@ import SwiftUI
 
 struct ChatView: View {
     
+    //@ObservedObject var document: starteddocumentprojectDocument
     @State var chatMessages: [ChatMessage] = ChatMessage.sampleMessages
     @State var messageText: String = ""
     @State private var navigationSelection: Int? = nil
-    
-    extension ChatMessage {
-        static let sampleMessages = [
-            ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
-            ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt),
-            ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
-            ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt)
-        ]
-    }
     
     var body: some View {
         VStack {
@@ -39,6 +31,10 @@ struct ChatView: View {
                 
                 Button(action: {
                     sendMessage()
+                    // Here, we programmatically trigger the navigation action
+                    // by setting the navigation selection to nil
+                    // This will dismiss the current view and navigate back
+                    // to the previous view in the navigation stack
                     navigationSelection = 1
                 }) {
                     Text("Send")
@@ -91,4 +87,11 @@ enum MessageSender {
     case gpt
 }
 
-
+extension ChatMessage {
+    static let sampleMessages = [
+        ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
+        ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt),
+        ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
+        ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt)
+    ]
+}
