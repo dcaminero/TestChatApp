@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var document: starteddocumentprojectDocument
+    
+    @State private var navigationSelection: Int? = 0
     
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: ChatView()) {
-                    Text("Go to Chat View")
-                }
+                NavigationLink("Go", destination: ContentView(), tag: 0, selection: $navigationSelection)
             }
-            .navigationTitle("First View")
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(document: starteddocumentprojectDocument())
+        ContentView()
     }
 }

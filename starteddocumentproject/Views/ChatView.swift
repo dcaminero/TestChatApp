@@ -11,6 +11,16 @@ struct ChatView: View {
     
     @State var chatMessages: [ChatMessage] = ChatMessage.sampleMessages
     @State var messageText: String = ""
+    @State private var navigationSelection: Int? = nil
+    
+    extension ChatMessage {
+        static let sampleMessages = [
+            ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
+            ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt),
+            ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
+            ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt)
+        ]
+    }
     
     var body: some View {
         VStack {
@@ -20,25 +30,25 @@ struct ChatView: View {
                         messageView(message: message)
                     }
                 }
-                .navigationTitle("Second View")
             }
-            HStack{
-                TextField("Enter a message", text: $messageText){
-                    
-                }
+            HStack {
+                TextField("Enter a message", text: $messageText)
                     .padding()
-                    .background(.gray.opacity(0.1))
+                    .background(Color.gray.opacity(0.1))
                     .cornerRadius(12)
-                Button {
+                
+                Button(action: {
                     sendMessage()
-                } label: {
+                    navigationSelection = 1
+                }) {
                     Text("Send")
                         .foregroundColor(.white)
                         .padding()
-                        .background(.black)
+                        .background(Color.black)
                         .cornerRadius(12)
                 }
-
+                // Wrap the button in a NavigationLink
+                .background(NavigationLink("", destination: ContentView(), tag: 1, selection: $navigationSelection))
             }
         }
         .padding()
@@ -81,11 +91,4 @@ enum MessageSender {
     case gpt
 }
 
-extension ChatMessage {
-    static let sampleMessages = [
-        ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
-        ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt),
-        ChatMessage(id: UUID().uuidString, content: "Sample message from me", dateCreated: Date(), sender: .me),
-        ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), sender: .gpt)
-    ]
-}
+

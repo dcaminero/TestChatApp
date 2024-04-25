@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct starteddocumentprojectApp: App {
-    @StateObject private var document = starteddocumentprojectDocument()
     // State variable to control whether to show the main view
     @State private var showMainView = false
     
@@ -17,7 +16,7 @@ struct starteddocumentprojectApp: App {
         WindowGroup {
             if showMainView {
                 // Show the main content view
-                ContentView(document: document)
+                ContentView()
             } else {
                 // Show the splash screen view
                 SplashScreenView()
